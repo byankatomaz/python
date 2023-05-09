@@ -1,0 +1,58 @@
+##create database celulares;
+
+##use celulares;
+
+create table xiaomi(
+    idNum int primary key auto_increment,
+	Model varchar(100),
+    valor float
+);
+
+create table apple(
+    idNum int primary key auto_increment,
+	Model varchar(100),
+    valor float
+);
+
+create table motorola(
+    idNum int primary key auto_increment,
+	Model varchar(100),
+    valor float
+);
+
+create table lg(
+    idNum int primary key auto_increment,
+	Model varchar(100),
+    valor float
+);
+
+create table samsung(
+    idNum int primary key auto_increment,
+	Model varchar(100),
+    valor float
+);
+
+INSERT INTO xiaomi(Model, valor)
+VALUES
+	(null, null);
+select * from xiaomi;
+
+INSERT INTO apple(Model, valor)
+VALUES
+	(null, null);
+select * from apple;
+
+INSERT INTO motorola(Model, valor)
+VALUES
+	(null, null);
+select * from motorola;
+
+INSERT INTO lg(Model, valor)
+VALUES
+	(null, null);
+select * from lg;
+
+INSERT INTO samsung(Model, valor)
+VALUES
+	(null, null);
+select * from samsung;
