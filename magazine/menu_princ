@@ -1,0 +1,88 @@
+from time import sleep
+from adicionando import *
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
+class Web:
+    def __init__(self):
+        self.driver = webdriver.Chrome()
+        self.celulares()
+
+    def celulares(self):
+
+        lista_site = ['xiaomi', 'iphone', 'motorola', 'celular-lg', 'samsung-galaxy']
+        lista_code = ['xiao', 'teip', 'srmt', 'telg', 'galx']
+        sleep(5)
+
+        for i in lista_site:
+            print()
+            print(i)
+
+            for j in lista_code:
+
+                self.driver.get(f'https://www.magazineluiza.com.br/{i}/celulares-e-smartphones/s/te/{j}/')
+
+                sum = 0
+                        
+                for k in range(11):
+
+                    try:
+
+                        if k == 9:
+                            continue
+
+                        lista_modelo_valor = [self.driver.find_element(By.XPATH, f'/html/body/div[1]/div/main/section[4]/div[2]/div/ul/li[{k + 1}]/a/div[3]/h2').text]
+                        valor = self.driver.find_element(By.XPATH, f'/html/body/div[1]/div/main/section[4]/div[2]/div/ul/li[{k + 1}]/a/div[3]/div[2]/div/p[2]').text
+                        lista_modelo_valor.append(valor)
+
+                        Model, valor = lista_modelo_valor
+
+                        if i == 'xiaomi':
+                            inserir_xiaomi(Model, valor)
+
+                        elif i == 'iphone':
+                            inserir_apple(Model, valor)
+                        elif i == 'motorola':
+                            inserir_motorola(Model, valor)
+                        elif i == 'celular-lg':
+                            inserir_lg(Model, valor)
+                        else:
+                            inserir_samsung(Model, valor)
+
+                        print(lista_modelo_valor)
+
+                        sum += 1
+
+                    except:
+
+                        lista_modelo_valor = [self.driver.find_element(By.XPATH, f'/html/body/div[1]/div/main/section[4]/div[2]/div/ul/li[{k + 1}]/a/div[3]/h2').text]
+                        valor = self.driver.find_element(By.XPATH,
+                                                         f'/html/body/div[1]/div/main/section[4]/div[2]/div/ul/li[{k+1}]/a/div[3]/div/div/p[1]').text
+                        lista_modelo_valor.append(valor)
+
+                        Model, valor = lista_modelo_valor
+
+                        if i == 'xiaomi':
+                            inserir_xiaomi(Model, valor)
+
+                        elif i == 'iphone':
+                            inserir_apple(Model, valor)
+                        elif i == 'motorola':
+                            inserir_motorola(Model, valor)
+                        elif i == 'celular-lg':
+                            inserir_lg(Model, valor)
+                        else:
+                            inserir_samsung(Model, valor)
+
+                        print('except: ', lista_modelo_valor)
+
+                        sum += 1
+
+                        if sum == 10:
+                            print(sum)
+                            break
+            break
+
+
+maga = Web()
