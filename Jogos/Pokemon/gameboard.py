@@ -3,9 +3,11 @@ import random
 import inquirer
 
 class Game:
-    def __init__(self, time = 90):
+    def __init__(self):
         self.typePlayer = ''
-        self.time = time
+        self.typeBot = ''
+        self.data_pokemons = []
+        self.cont = 0
     
     def gameInit(self):
         self.optionUserCharac()
@@ -22,46 +24,45 @@ class Game:
             ]
         
         elements = inquirer.prompt(questions)
-        self.typePlayer = elements
+        self.typePlayer = elements['elements']
         
         if elements['elements'] == 'Water':
             self.selectionWater()
         
-        if elements['elements'] == 'Grass':
+        elif elements['elements'] == 'Grass':
             self.selectionGrass()
         
-        if elements['elements'] == 'Fire':
+        elif elements['elements'] == 'Fire':
             self.selectionFire()
-    
+
+        return self.typePlayer
 
     def optionBotCharac(self):
 
         elements = [Water.type, Grass.type, Fire.type]
-
         elementBot = random.choice(elements)
+
+        self.typeBot = elementBot
 
         if elementBot == 'Water':
             pokemons = ['Kyogre', 'Palkia', 'Blastoise']
-
             pokemonBot = random.choice(pokemons)
 
             self.theWaterPokemon(pokemons=None, pokemonBot=pokemonBot)
         
-        if elementBot == 'Grass':
+        elif elementBot == 'Grass':
             pokemons = ['Zarude', 'Venusaur', 'Roserade']
-
             pokemonBot = random.choice(pokemons)
 
             self.theGrassPokemon(pokemons=None, pokemonBot=pokemonBot)
         
-        if elementBot == 'Fire':
+        elif elementBot == 'Fire':
             pokemons = ['Reshiram', 'Charizard', 'Volcarona']
-
             pokemonBot = random.choice(pokemons)
 
             self.theFirePokemon(pokemons=None, pokemonBot=pokemonBot)
 
-
+        return self.typeBot
     
     def selectionWater(self):
             
@@ -102,6 +103,7 @@ class Game:
 
         self.theFirePokemon(pokemons, pokemonBot=None)
     
+
     def theWaterPokemon(self, pokemons, pokemonBot):
 
         water_pokemons = {
@@ -111,92 +113,90 @@ class Game:
         
         }
 
-        water_pokemon_data = water_pokemons.get(pokemons['pokemons']) if pokemons else water_pokemons.get(pokemonBot)
-        
-        if water_pokemon_data:
-            
+        if pokemons is not None:
+            water_pokemon_data = water_pokemons.get(pokemons['pokemons'])
+
             water_pokemon = Water(water_pokemon_data['name'], water_pokemon_data['life'], water_pokemon_data['attack'], water_pokemon_data['defense'], water_pokemon_data['speAttack'], water_pokemon_data['speDefense'], water_pokemon_data['speed'])
+            self.data_pokemons.append(water_pokemon)
 
-            if pokemons:
-                print(f'Your pokemon: {water_pokemon.name} and have {water_pokemon.life} of life')
-            elif pokemonBot:
-                print(f'The pokemon of Bot: {water_pokemon.name} and have {water_pokemon.life} of life')
+            print(f'Your pokemon: {water_pokemon.name} and have {water_pokemon.life} of life')
+            self.cont += 1
 
-            water_pokemon.WaterPokes()
+        else:
+            water_pokemon_data_bot = water_pokemons.get(pokemonBot)
 
+            water_pokemon_bot = Water(water_pokemon_data_bot['name'], water_pokemon_data_bot['life'], water_pokemon_data_bot['attack'], water_pokemon_data_bot['defense'], water_pokemon_data_bot['speAttack'], water_pokemon_data_bot['speDefense'], water_pokemon_data_bot['speed'])
+            self.data_pokemons.append(water_pokemon_bot)
+
+            print(f'The pokemon of Bot: {water_pokemon_bot.name} and have {water_pokemon_bot.life} of life')
+            self.cont += 1
+
+        if self.cont == 2:
+            return self.data_pokemons
+
+    
     
     def theGrassPokemon(self, pokemons, pokemonBot):
 
-        if pokemons is not None and pokemons['pokemons'] == 'Zarude' or pokemonBot == 'Zarude':
+        grass_pokemons = {
+            "Zarude": {"name": "Zarude", "life": 650, "attack" : {'Multiple Whiplash': 115, 'Suction Vines': 100, 'Jungle Rage': 119}, 'defense': 105, 'speAttack': {'Leaf Guard': 150, 'Jungle Explosion': 145}, 'speDefense': 120, 'speed': 105},
+            "Venusaur": {"name": "Venusaur", "life": 780, "attack" :{' Jungle Totem': 140, 'Dangerous Pollen': 130, 'Wobbly Loop': 100}, 'defense': 100, 'speAttack': {'Overgrow': 150, 'Sunshine': 130}, 'speDefense': 160, 'speed': 100},
+            "Roserade": {"name": "Roserade", "life": 630, "attack" : {'Sweet Scent': 125, 'Poison Sting': 120, 'Petal Dance': 105}, 'defense': 120, 'speAttack': {'Energy Ball': 150, 'Solar Beam': 140}, 'speDefense': 125, 'speed': 90}
+        }
 
-            grass_pokemon = Grass("Zarude", 650, {'Multiple Whiplash': 115, 'Suction Vines': 100, 'Jungle Rage': 119}, 105, {'Leaf Guard': 150, 'Jungle Explosion': 145}, 120, 105)
+        if pokemons is not None:
+            grass_pokemon_data = grass_pokemons.get(pokemons['pokemons'])
 
-            if pokemons:
-                print(f'Your pokemon: {grass_pokemon.name} and have {grass_pokemon.life} of life')
-            elif pokemonBot == 'Zarude':
-                print(f'The pokemon of Bot: {grass_pokemon.name} and have {grass_pokemon.life} of life')
-
-            grass_pokemon.GrassPokes()
-        
-        elif pokemons is not None and pokemons['pokemons'] == 'Venusaur' or pokemonBot == 'Venusaur':
+            grass_pokemon = Grass(grass_pokemon_data['name'], grass_pokemon_data['life'], grass_pokemon_data['attack'], grass_pokemon_data['defense'], grass_pokemon_data['speAttack'], grass_pokemon_data['speDefense'], grass_pokemon_data['speed'])
+            self.data_pokemons.append(grass_pokemon)
             
-            grass_pokemon = Grass("Venusaur", 780, {' Jungle Totem': 140, 'Dangerous Pollen': 130, 'Wobbly Loop': 100}, 100, {'Overgrow': 150, 'Sunshine': 130}, 160, 100)
+            print(f'Your pokemon: {grass_pokemon.name} and have {grass_pokemon.life} of life')
+            self.cont += 1
 
-            if pokemons:
-                print(f'Your pokemon: {grass_pokemon.name} and have {grass_pokemon.life} of life')
-            elif pokemonBot == 'Venusaur':
-                print(f'The pokemon of Bot: {grass_pokemon.name} and have {grass_pokemon.life} of life')
+        else:
+            grass_pokemon_data_bot = grass_pokemons.get(pokemonBot)
 
-            grass_pokemon.GrassPokes()
-        
-        elif pokemons is not None and pokemons['pokemons'] == 'Roserade' or pokemonBot == 'Roserade':
-            
-            grass_pokemon = Grass("Roserade", 630, {'Sweet Scent': 125, 'Poison Sting': 120, 'Petal Dance': 105}, 120, {'Energy Ball': 150, 'Solar Beam': 140}, 125, 90)
+            grass_pokemon_bot = Grass(grass_pokemon_data_bot['name'], grass_pokemon_data_bot['life'], grass_pokemon_data_bot['attack'], grass_pokemon_data_bot['defense'], grass_pokemon_data_bot['speAttack'], grass_pokemon_data_bot['speDefense'], grass_pokemon_data_bot['speed'])
+            self.data_pokemons.append(grass_pokemon_bot)
 
-            if pokemons:
-                print(f'Your pokemon: {grass_pokemon.name} and have {grass_pokemon.life} of life')
-            elif pokemonBot == 'Roserade':
-                print(f'The pokemon of Bot: {grass_pokemon.name} and have {grass_pokemon.life} of life')
+            print(f'The pokemon of Bot: {grass_pokemon_bot.name} and have {grass_pokemon_bot.life} of life')
+            self.cont += 1
 
-            grass_pokemon.GrassPokes()
-    
+        if self.cont == 2:
+            return self.data_pokemons
+
 
     def theFirePokemon(self, pokemons, pokemonBot):
 
-        if pokemons is not None and pokemons['pokemons'] == 'Reshiram' or pokemonBot == 'Reshiram':
+        fire_pokemons = {
+            "Reshiram": {"name": "Reshiram", "life": 680, "attack" : {'Flamethrower': 100, 'Fusion Flare': 110, 'Dragon Claw': 100}, 'defense': 100, 'speAttack': {'Turboblaze': 150, 'Blue Fire': 130}, 'speDefense': 120, 'speed': 90},
+            "Charizard": {"name": "Charizard", "life": 750, "attack" : {'Slash': 140, 'Dragon breath': 130, 'Blaze': 90}, 'defense': 100, 'speAttack': {'Solar Power': 150, 'Hurricane Flame': 140}, 'speDefense': 160, 'speed': 120},
+            "Volcarona": {"name": "Volcarona", "life": 650, "attack" : {'Heat Wave': 122, 'Bug Buzz': 100, 'Fiery Dance': 80}, 'defense': 95, 'speAttack': {'Flame Body': 150, 'Flare Blitz': 150}, 'speDefense': 105, 'speed': 100}
+        }
 
-            fire_pokemon = Fire("Reshiram", 680, {'Flamethrower': 100, 'Fusion Flare': 110, 'Dragon Claw': 100}, 100, {'Turboblaze': 150, 'Blue Fire': 130}, 120, 90105)
+        if pokemons is not None:
+            fire_pokemon_data = fire_pokemons.get(pokemons['pokemons'])
 
-            if pokemons:
-                print(f'Your pokemon: {fire_pokemon.name} and have {fire_pokemon.life} of life')
-            elif pokemonBot == 'Reshiram':
-                print(f'The pokemon of Bot: {fire_pokemon.name} and have {fire_pokemon.life} of life')
-
-            fire_pokemon.FirePokes()
-        
-        elif pokemons is not None and pokemons['pokemons'] == 'Charizard' or pokemonBot == 'Charizard':
+            fire_pokemon = Fire(fire_pokemon_data['name'], fire_pokemon_data['life'], fire_pokemon_data['attack'], fire_pokemon_data['defense'], fire_pokemon_data['speAttack'], fire_pokemon_data['speDefense'], fire_pokemon_data['speed'])
+            self.data_pokemons.append(fire_pokemon)
             
-            fire_pokemon = Fire("Charizard", 750, {'Slash': 140, 'Dragon breath': 130, 'Blaze': 90}, 100, {'Solar Power': 150, 'Hurricane Flame': 140}, 160, 120)
+            print(f'Your pokemon: {fire_pokemon.name} and have {fire_pokemon.life} of life')
+            self.cont += 1
 
-            if pokemons:
-                print(f'Your pokemon: {fire_pokemon.name} and have {fire_pokemon.life} of life')
-            elif pokemonBot == 'Charizard':
-                print(f'The pokemon of Bot: {fire_pokemon.name} and have {fire_pokemon.life} of life')
+        else:
+            fire_pokemon_data_bot = fire_pokemons.get(pokemonBot)
 
-            fire_pokemon.FirePokes()
-        
-        elif pokemons is not None and pokemons['pokemons'] == 'Volcarona' or pokemonBot == 'Volcarona':
+            fire_pokemon_bot = Fire(fire_pokemon_data_bot['name'], fire_pokemon_data_bot['life'], fire_pokemon_data_bot['attack'], fire_pokemon_data_bot['defense'], fire_pokemon_data_bot['speAttack'], fire_pokemon_data_bot['speDefense'], fire_pokemon_data_bot['speed'])
+            self.data_pokemons.append(fire_pokemon_bot)
             
-            fire_pokemon = Fire("Volcarona", 650, {'Heat Wave': 122, 'Bug Buzz': 100, 'Fiery Dance': 80}, 95, {'Flame Body': 150, 'Flare Blitz': 150}, 105, 100)
-
-            if pokemons:
-                print(f'Your pokemon: {fire_pokemon.name} and have {fire_pokemon.life} of life')
-            elif pokemonBot == 'Volcarona':
-                print(f'The pokemon of Bot: {fire_pokemon.name} and have {fire_pokemon.life} of life')
-
-            fire_pokemon.FirePokes()
+            print(f'The pokemon of Bot: {fire_pokemon_bot.name} and have {fire_pokemon_bot.life} of life')
+            self.cont += 1
+        
+        if self.cont == 2:
+            return self.data_pokemons
 
 
-
-game = Game()
-game.gameInit()
+if __name__ == '__main__':
+    
+    game = Game()
+    game.gameInit()
