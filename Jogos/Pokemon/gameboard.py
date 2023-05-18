@@ -48,19 +48,19 @@ class Game:
             pokemons = ['Kyogre', 'Palkia', 'Blastoise']
             pokemonBot = random.choice(pokemons)
 
-            self.theWaterPokemon(pokemons=None, pokemonBot=pokemonBot)
+            self.theWaterPokemon(pokemonBot=pokemonBot)
         
         elif elementBot == 'Grass':
             pokemons = ['Zarude', 'Venusaur', 'Roserade']
             pokemonBot = random.choice(pokemons)
 
-            self.theGrassPokemon(pokemons=None, pokemonBot=pokemonBot)
+            self.theGrassPokemon(pokemonBot=pokemonBot)
         
         elif elementBot == 'Fire':
             pokemons = ['Reshiram', 'Charizard', 'Volcarona']
             pokemonBot = random.choice(pokemons)
 
-            self.theFirePokemon(pokemons=None, pokemonBot=pokemonBot)
+            self.theFirePokemon(pokemonBot=pokemonBot)
 
         return self.typeBot
     
@@ -75,7 +75,7 @@ class Game:
         
         pokemons = inquirer.prompt(questions)
 
-        self.theWaterPokemon(pokemons, pokemonBot=None)
+        self.theWaterPokemon(pokemons = pokemons)
     
     def selectionGrass(self):
             
@@ -88,7 +88,7 @@ class Game:
         
         pokemons = inquirer.prompt(questions)
 
-        self.theGrassPokemon(pokemons, pokemonBot=None)
+        self.theGrassPokemon(pokemons = pokemons)
     
     def selectionFire(self):
             
@@ -101,15 +101,15 @@ class Game:
         
         pokemons = inquirer.prompt(questions)
 
-        self.theFirePokemon(pokemons, pokemonBot=None)
+        self.theFirePokemon(pokemons = pokemons)
     
 
-    def theWaterPokemon(self, pokemons, pokemonBot):
+    def theWaterPokemon(self, pokemons = None, pokemonBot = None):
 
         water_pokemons = {
-            "Kyogre": {"name": "Kyogre", "life": 770, "attack" : {'Blizzard': 100, 'Thunder': 110, 'To surf': 100}, 'defense': 90, 'speAttack': {'Water jet': 150, 'Waterfall': 140}, 'speDefense': 160, 'speed': 90},
-            "Palkia": {"name": "Palkia", "life": 680, "attack" : {'Fire Blast': 140, 'Hydro pump': 130, 'Aqua Tail': 50}, 'defense': 100, 'speAttack': {'Draco Meteor': 150, 'Spacial Rend': 135}, 'speDefense': 120, 'speed': 120},
-            "Blastoise": {"name": "Blastoise", "life": 630, "attack" : {'Water Gun': 122, 'Rapid Spin': 110, 'To surf': 100}, 'defense': 120, 'speAttack': {'Ice Beam': 150, 'Hydro Cannon': 140}, 'speDefense': 115, 'speed': 90}
+            "Kyogre": {"name": "Kyogre", "life": 570, "attack" : {'Blizzard': 100, 'Thunder': 110, 'To surf': 100}, 'defense': 90, 'speAttack': {'Water jet': 150, 'Waterfall': 140}, 'speDefense': 160, 'speed': 90},
+            "Palkia": {"name": "Palkia", "life": 580, "attack" : {'Fire Blast': 140, 'Hydro pump': 130, 'Aqua Tail': 50}, 'defense': 100, 'speAttack': {'Draco Meteor': 150, 'Spacial Rend': 135}, 'speDefense': 120, 'speed': 120},
+            "Blastoise": {"name": "Blastoise", "life": 530, "attack" : {'Water Gun': 122, 'Rapid Spin': 110, 'To surf': 100}, 'defense': 120, 'speAttack': {'Ice Beam': 150, 'Hydro Cannon': 140}, 'speDefense': 115, 'speed': 90}
         
         }
 
@@ -119,7 +119,7 @@ class Game:
             water_pokemon = Water(water_pokemon_data['name'], water_pokemon_data['life'], water_pokemon_data['attack'], water_pokemon_data['defense'], water_pokemon_data['speAttack'], water_pokemon_data['speDefense'], water_pokemon_data['speed'])
             self.data_pokemons.append(water_pokemon)
 
-            print(f'Your pokemon: {water_pokemon.name}, of type {Water.type} and have {water_pokemon.life} of life')
+            print(f'\033[1;36mYour pokemon: {water_pokemon.name}, of type {Water.type} and have {water_pokemon.life} of life\033[m')
             self.cont += 1
 
         else:
@@ -128,7 +128,7 @@ class Game:
             water_pokemon_bot = Water(water_pokemon_data_bot['name'], water_pokemon_data_bot['life'], water_pokemon_data_bot['attack'], water_pokemon_data_bot['defense'], water_pokemon_data_bot['speAttack'], water_pokemon_data_bot['speDefense'], water_pokemon_data_bot['speed'])
             self.data_pokemons.append(water_pokemon_bot)
 
-            print(f'The pokemon of Bot: {water_pokemon_bot.name}, of type {Water.type} and have {water_pokemon_bot.life} of life')
+            print(f'\033[1;36mThe pokemon of Bot: {water_pokemon_bot.name}, of type {Water.type} and have {water_pokemon_bot.life} of life\033[m')
             self.cont += 1
 
         if self.cont == 2:
@@ -136,12 +136,12 @@ class Game:
 
     
     
-    def theGrassPokemon(self, pokemons, pokemonBot):
+    def theGrassPokemon(self, pokemons = None, pokemonBot = None):
 
         grass_pokemons = {
-            "Zarude": {"name": "Zarude", "life": 650, "attack" : {'Multiple Whiplash': 115, 'Suction Vines': 100, 'Jungle Rage': 119}, 'defense': 105, 'speAttack': {'Leaf Guard': 150, 'Jungle Explosion': 145}, 'speDefense': 120, 'speed': 105},
-            "Venusaur": {"name": "Venusaur", "life": 780, "attack" :{' Jungle Totem': 140, 'Dangerous Pollen': 130, 'Wobbly Loop': 100}, 'defense': 100, 'speAttack': {'Overgrow': 150, 'Sunshine': 130}, 'speDefense': 160, 'speed': 100},
-            "Roserade": {"name": "Roserade", "life": 630, "attack" : {'Sweet Scent': 125, 'Poison Sting': 120, 'Petal Dance': 105}, 'defense': 120, 'speAttack': {'Energy Ball': 150, 'Solar Beam': 140}, 'speDefense': 125, 'speed': 90}
+            "Zarude": {"name": "Zarude", "life": 525, "attack" : {'Multiple Whiplash': 115, 'Suction Vines': 100, 'Jungle Rage': 119}, 'defense': 105, 'speAttack': {'Leaf Guard': 150, 'Jungle Explosion': 145}, 'speDefense': 120, 'speed': 105},
+            "Venusaur": {"name": "Venusaur", "life": 580, "attack" :{' Jungle Totem': 140, 'Dangerous Pollen': 130, 'Wobbly Loop': 100}, 'defense': 100, 'speAttack': {'Overgrow': 150, 'Sunshine': 130}, 'speDefense': 160, 'speed': 100},
+            "Roserade": {"name": "Roserade", "life": 530, "attack" : {'Sweet Scent': 125, 'Poison Sting': 120, 'Petal Dance': 105}, 'defense': 120, 'speAttack': {'Energy Ball': 150, 'Solar Beam': 140}, 'speDefense': 125, 'speed': 90}
         }
 
         if pokemons is not None:
@@ -150,7 +150,7 @@ class Game:
             grass_pokemon = Grass(grass_pokemon_data['name'], grass_pokemon_data['life'], grass_pokemon_data['attack'], grass_pokemon_data['defense'], grass_pokemon_data['speAttack'], grass_pokemon_data['speDefense'], grass_pokemon_data['speed'])
             self.data_pokemons.append(grass_pokemon)
             
-            print(f'Your pokemon: {grass_pokemon.name}, of type {Grass.type} and have {grass_pokemon.life} of life')
+            print(f'\033[1;32mYour pokemon: {grass_pokemon.name}, of type {Grass.type} and have {grass_pokemon.life} of life\033[m')
             self.cont += 1
 
         else:
@@ -159,19 +159,19 @@ class Game:
             grass_pokemon_bot = Grass(grass_pokemon_data_bot['name'], grass_pokemon_data_bot['life'], grass_pokemon_data_bot['attack'], grass_pokemon_data_bot['defense'], grass_pokemon_data_bot['speAttack'], grass_pokemon_data_bot['speDefense'], grass_pokemon_data_bot['speed'])
             self.data_pokemons.append(grass_pokemon_bot)
 
-            print(f'The pokemon of Bot: {grass_pokemon_bot.name}, of type {Grass.type} and have {grass_pokemon_bot.life} of life')
+            print(f'\033[1;32mThe pokemon of Bot: {grass_pokemon_bot.name}, of type {Grass.type} and have {grass_pokemon_bot.life} of life\033[m')
             self.cont += 1
 
         if self.cont == 2:
             return self.data_pokemons
 
 
-    def theFirePokemon(self, pokemons, pokemonBot):
+    def theFirePokemon(self, pokemons = None, pokemonBot = None):
 
         fire_pokemons = {
-            "Reshiram": {"name": "Reshiram", "life": 680, "attack" : {'Flamethrower': 100, 'Fusion Flare': 110, 'Dragon Claw': 100}, 'defense': 100, 'speAttack': {'Turboblaze': 150, 'Blue Fire': 130}, 'speDefense': 120, 'speed': 90},
-            "Charizard": {"name": "Charizard", "life": 750, "attack" : {'Slash': 140, 'Dragon breath': 130, 'Blaze': 90}, 'defense': 100, 'speAttack': {'Solar Power': 150, 'Hurricane Flame': 140}, 'speDefense': 160, 'speed': 120},
-            "Volcarona": {"name": "Volcarona", "life": 650, "attack" : {'Heat Wave': 122, 'Bug Buzz': 100, 'Fiery Dance': 80}, 'defense': 95, 'speAttack': {'Flame Body': 150, 'Flare Blitz': 150}, 'speDefense': 105, 'speed': 100}
+            "Reshiram": {"name": "Reshiram", "life": 580, "attack" : {'Flamethrower': 100, 'Fusion Flare': 110, 'Dragon Claw': 100}, 'defense': 100, 'speAttack': {'Turboblaze': 150, 'Blue Fire': 130}, 'speDefense': 120, 'speed': 90},
+            "Charizard": {"name": "Charizard", "life": 550, "attack" : {'Slash': 140, 'Dragon breath': 130, 'Blaze': 90}, 'defense': 100, 'speAttack': {'Solar Power': 150, 'Hurricane Flame': 140}, 'speDefense': 160, 'speed': 120},
+            "Volcarona": {"name": "Volcarona", "life": 550, "attack" : {'Heat Wave': 122, 'Bug Buzz': 100, 'Fiery Dance': 80}, 'defense': 95, 'speAttack': {'Flame Body': 150, 'Flare Blitz': 150}, 'speDefense': 105, 'speed': 100}
         }
 
         if pokemons is not None:
@@ -180,7 +180,7 @@ class Game:
             fire_pokemon = Fire(fire_pokemon_data['name'], fire_pokemon_data['life'], fire_pokemon_data['attack'], fire_pokemon_data['defense'], fire_pokemon_data['speAttack'], fire_pokemon_data['speDefense'], fire_pokemon_data['speed'])
             self.data_pokemons.append(fire_pokemon)
             
-            print(f'Your pokemon: {fire_pokemon.name}, of type {Fire.type} and have {fire_pokemon.life} of life')
+            print(f'\033[1;31mYour pokemon: {fire_pokemon.name}, of type {Fire.type} and have {fire_pokemon.life} of life\033[m')
             self.cont += 1
 
         else:
@@ -189,7 +189,7 @@ class Game:
             fire_pokemon_bot = Fire(fire_pokemon_data_bot['name'], fire_pokemon_data_bot['life'], fire_pokemon_data_bot['attack'], fire_pokemon_data_bot['defense'], fire_pokemon_data_bot['speAttack'], fire_pokemon_data_bot['speDefense'], fire_pokemon_data_bot['speed'])
             self.data_pokemons.append(fire_pokemon_bot)
             
-            print(f'The pokemon of Bot: {fire_pokemon_bot.name}, of type {Fire.type} and have {fire_pokemon_bot.life} of life')
+            print(f'\033[1;31mThe pokemon of Bot: {fire_pokemon_bot.name}, of type {Fire.type} and have {fire_pokemon_bot.life} of life\033[m')
             self.cont += 1
         
         if self.cont == 2:
