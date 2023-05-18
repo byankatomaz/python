@@ -119,7 +119,7 @@ class Game:
             water_pokemon = Water(water_pokemon_data['name'], water_pokemon_data['life'], water_pokemon_data['attack'], water_pokemon_data['defense'], water_pokemon_data['speAttack'], water_pokemon_data['speDefense'], water_pokemon_data['speed'])
             self.data_pokemons.append(water_pokemon)
 
-            print(f'Your pokemon: {water_pokemon.name} and have {water_pokemon.life} of life')
+            print(f'Your pokemon: {water_pokemon.name}, of type {Water.type} and have {water_pokemon.life} of life')
             self.cont += 1
 
         else:
@@ -128,7 +128,7 @@ class Game:
             water_pokemon_bot = Water(water_pokemon_data_bot['name'], water_pokemon_data_bot['life'], water_pokemon_data_bot['attack'], water_pokemon_data_bot['defense'], water_pokemon_data_bot['speAttack'], water_pokemon_data_bot['speDefense'], water_pokemon_data_bot['speed'])
             self.data_pokemons.append(water_pokemon_bot)
 
-            print(f'The pokemon of Bot: {water_pokemon_bot.name} and have {water_pokemon_bot.life} of life')
+            print(f'The pokemon of Bot: {water_pokemon_bot.name}, of type {Water.type} and have {water_pokemon_bot.life} of life')
             self.cont += 1
 
         if self.cont == 2:
@@ -150,7 +150,7 @@ class Game:
             grass_pokemon = Grass(grass_pokemon_data['name'], grass_pokemon_data['life'], grass_pokemon_data['attack'], grass_pokemon_data['defense'], grass_pokemon_data['speAttack'], grass_pokemon_data['speDefense'], grass_pokemon_data['speed'])
             self.data_pokemons.append(grass_pokemon)
             
-            print(f'Your pokemon: {grass_pokemon.name} and have {grass_pokemon.life} of life')
+            print(f'Your pokemon: {grass_pokemon.name}, of type {Grass.type} and have {grass_pokemon.life} of life')
             self.cont += 1
 
         else:
@@ -159,7 +159,7 @@ class Game:
             grass_pokemon_bot = Grass(grass_pokemon_data_bot['name'], grass_pokemon_data_bot['life'], grass_pokemon_data_bot['attack'], grass_pokemon_data_bot['defense'], grass_pokemon_data_bot['speAttack'], grass_pokemon_data_bot['speDefense'], grass_pokemon_data_bot['speed'])
             self.data_pokemons.append(grass_pokemon_bot)
 
-            print(f'The pokemon of Bot: {grass_pokemon_bot.name} and have {grass_pokemon_bot.life} of life')
+            print(f'The pokemon of Bot: {grass_pokemon_bot.name}, of type {Grass.type} and have {grass_pokemon_bot.life} of life')
             self.cont += 1
 
         if self.cont == 2:
@@ -180,7 +180,7 @@ class Game:
             fire_pokemon = Fire(fire_pokemon_data['name'], fire_pokemon_data['life'], fire_pokemon_data['attack'], fire_pokemon_data['defense'], fire_pokemon_data['speAttack'], fire_pokemon_data['speDefense'], fire_pokemon_data['speed'])
             self.data_pokemons.append(fire_pokemon)
             
-            print(f'Your pokemon: {fire_pokemon.name} and have {fire_pokemon.life} of life')
+            print(f'Your pokemon: {fire_pokemon.name}, of type {Fire.type} and have {fire_pokemon.life} of life')
             self.cont += 1
 
         else:
@@ -189,7 +189,7 @@ class Game:
             fire_pokemon_bot = Fire(fire_pokemon_data_bot['name'], fire_pokemon_data_bot['life'], fire_pokemon_data_bot['attack'], fire_pokemon_data_bot['defense'], fire_pokemon_data_bot['speAttack'], fire_pokemon_data_bot['speDefense'], fire_pokemon_data_bot['speed'])
             self.data_pokemons.append(fire_pokemon_bot)
             
-            print(f'The pokemon of Bot: {fire_pokemon_bot.name} and have {fire_pokemon_bot.life} of life')
+            print(f'The pokemon of Bot: {fire_pokemon_bot.name}, of type {Fire.type} and have {fire_pokemon_bot.life} of life')
             self.cont += 1
         
         if self.cont == 2:
