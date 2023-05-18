@@ -1,4 +1,6 @@
+from time import sleep
 from gameboard import *
+import os
 
 class Battle:
 
@@ -6,15 +8,16 @@ class Battle:
 
         self.benefits_player = False
         self.benefits_bot = False
+        self.specialAttack = False
         self.nailedIt = False
-        self.userInit = False
-        self.botInit = False
+        self.turnBot = False
+        self.turnUser = False
         self.botWin = False
         self.userWin = False
-        self.iWin = False
-
+        self.off = False
 
         self.gameInitTwo()
+
 
     def gameInitTwo(self):
 
@@ -27,6 +30,9 @@ class Battle:
         self.bot = self.lista[1]
 
         self.benefits()
+
+        sleep(1)
+
         self.whoStarts()
     
 
@@ -35,8 +41,7 @@ class Battle:
         if self.user.speed > self.bot.speed:
             print('You start\n')
 
-            self.userInit = True
-
+            sleep(2)
             self.attackUser()
         
         elif self.user.speed == self.bot.speed:
@@ -47,16 +52,19 @@ class Battle:
             print(choice)
 
             if choice == choices[0]:
-                self.botInit = True
+
+                sleep(2)
                 self.attackBot()
                 
             else:
-                self.userInit = True
+
+                sleep(2)
                 self.attackUser()
         
         else:
             print('I start\n')
-            self.botInit = True
+
+            sleep(2)
             self.attackBot()
             
     
@@ -87,6 +95,8 @@ class Battle:
 
     def attackUser(self):
 
+        self.turnUser = True
+
         attacks = []
 
         for attack in self.user.attack.keys():
@@ -103,15 +113,15 @@ class Battle:
 
         attackUser2 = attack_2['attacks2']
 
-        print(f'Meu ataque é: {attackUser2}')
+        print(f'\nAttack of user: {attackUser2}')
 
-        self.damage(attackBot2=None, attackUser2=attackUser2)
-
+        self.damage(attackUser2=attackUser2)
         self.gaming()
 
-        
     
     def attackBot(self):
+
+        self.turnBot = True
 
         attacksBot = []
 
@@ -120,29 +130,27 @@ class Battle:
         
         attackBot2 = random.choice(attacksBot)
 
-        print(f'Meu ataque é: {attackBot2}')
+        print(f'\nAttack of computer: {attackBot2}')
 
-        self.damage(attackBot2 = attackBot2, attackUser2=None)
-
+        self.damage(attackBot2 = attackBot2)
         self.gaming()
-    
     
 
     def nailed(self):
 
 
         luck = [False, True]
-        weights = [0.6, 0.4]
+        weights = [0.5, 0.5]
 
         self.nailedIt = random.choices(luck, weights)[0]
 
         if self.nailedIt == True:
 
-            print('Congratulations, you nailed it')
+            print('Congratulations, you nailed it\n')
         
         else:
 
-            print('Oh no, you didnt get it right')
+            print('Oh no, you didnt get it right\n')
 
 
     def damage(self, attackBot2 = None, attackUser2 = None):
@@ -151,41 +159,52 @@ class Battle:
 
         if self.nailedIt == True:
             
-            if self.userInit:
-                if self.nailedIt == True and self.benefits_player == True:
+            if self.turnUser == True:
+                if self.benefits_player == True:
 
                     self.bot.life -= (self.user.attack[attackUser2] * 1.5)
-
-                    print('Bot: ', self.bot.life)
+                    print(f'Life of pokemon bot \033[1m{self.bot.name}\033[m: {self.bot.life:.2f}\n')
                 
-                elif self.nailedIt == True and self.benefits_player == False and self.benefits_bot == True:
+                elif self.benefits_player == False and self.benefits_bot == True:
 
                     self.bot.life -= (self.user.attack[attackUser2] / 1.5)
-
-                    print('Bot: ', self.bot.life)
+                    print(f'Life of pokemon bot \033[1m{self.bot.name}\033[m: {self.bot.life:.2f}\n')
                 
                 else:
                     self.bot.life -= self.user.attack[attackUser2]
-                    print('Bot: ', self.bot.life)
+                    print(f'Life of pokemon bot \033[1m{self.bot.name}\033[m: {self.bot.life:.2f}\n')
             
 
-            elif self.botInit:
-                if self.nailedIt == True and self.benefits_bot == True:
+            elif self.turnBot == True:
+                if self.benefits_bot == True:
 
                     self.user.life -= (self.bot.attack[attackBot2] * 1.5)
-
-                    print('User: ', self.user.life)
+                    print(f'Life of pokemon user \033[1m{self.user.name}\033[m: {self.user.life:.2f}\n')
                 
-                elif self.nailedIt == True and self.benefits_bot == False and self.benefits_player == True:
+                elif self.benefits_bot == False and self.benefits_player == True:
 
                     self.user.life -= (self.bot.attack[attackBot2] / 1.5)
-
-                    print('User: ', self.user.life)
+                    print(f'Life of pokemon user \033[1m{self.user.name}\033[m: {self.user.life:.2f}\n')
 
                 else:
 
                     self.user.life -= self.bot.attack[attackBot2]
-                    print('User: ', self.user.life)
+                    print(f'Life of pokemon user \033[1m{self.user.name}\033[m: {self.user.life:.2f}\n')
+
+
+    
+    def turns(self):
+
+        while(self.off != True):
+            self.win()
+
+            if self.turnUser == True:
+                self.turnUser = False
+                self.attackBot()
+            
+            else:
+                self.turnBot = False
+                self.attackUser()
 
 
     def gaming(self):
@@ -193,50 +212,27 @@ class Battle:
         while True:
 
             self.win()
+            sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
+            self.turns()
 
-            if self.iWin == False:
-
-                if self.userInit == True:
-
-                    while True:
-                        self.attackBot()
-                        self.attackUser()
-
-                        if self.userWin == True:
-                            break
-                        elif self.botWin == True:
-                            break
-                        else:
-                            continue
-                
-                else:
-
-                    while True:
-                        self.attackUser()
-                        self.attackBot()
-
-                        if self.userWin == True:
-                            break
-                        elif self.botWin == True:
-                            break
-                        else:
-                            continue
-            
-            else:
-                print('GANHARAM FINALMENTE')
+            if self.off:
                 break
-        
-
+    
 
     def win(self):
 
         if self.user.life > 0 and self.bot.life <= 0:
             self.userWin = True
-            self.iWin = True
+            self.off = True
+
+            print('THE USER WINS')
             
         elif self.bot.life > 0 and self.user.life <= 0:
             self.botWin = True
-            self.iWin = True
+            self.off = True
+
+            print('THE COMPUTER WINS')
 
         else:
             pass
