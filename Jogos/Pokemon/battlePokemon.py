@@ -112,8 +112,9 @@ class Battle:
         attack_2 = inquirer.prompt(questions)
 
         attackUser2 = attack_2['attacks2']
-
-        print(f'\nAttack of user: {attackUser2}')
+        
+        print(f'\nCurrent life of your pokemon: {self.user.life:.2f}')
+        print(f'Your attack: {attackUser2}')
 
         self.damage(attackUser2=attackUser2)
         self.gaming()
@@ -130,7 +131,8 @@ class Battle:
         
         attackBot2 = random.choice(attacksBot)
 
-        print(f'\nAttack of computer: {attackBot2}')
+        print(f'\nCurrent life of my pokemon: {self.bot.life:.2f}')
+        print(f'My attack: {attackBot2}')
 
         self.damage(attackBot2 = attackBot2)
         self.gaming()
@@ -140,7 +142,7 @@ class Battle:
 
 
         luck = [False, True]
-        weights = [0.5, 0.5]
+        weights = [0.4, 0.6]
 
         self.nailedIt = random.choices(luck, weights)[0]
 
@@ -196,7 +198,8 @@ class Battle:
     def turns(self):
 
         while(self.off != True):
-            self.win()
+
+
 
             if self.turnUser == True:
                 self.turnUser = False
@@ -206,18 +209,20 @@ class Battle:
                 self.turnBot = False
                 self.attackUser()
 
-
     def gaming(self):
 
         while True:
 
             self.win()
-            sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear')
-            self.turns()
 
             if self.off:
                 break
+
+            sleep(6)
+            os.system('cls' if os.name == 'nt' else 'clear')
+            self.turns()
+            sleep(6)
+            os.system('cls' if os.name == 'nt' else 'clear')
     
 
     def win(self):
@@ -227,6 +232,7 @@ class Battle:
             self.off = True
 
             print('THE USER WINS')
+
             
         elif self.bot.life > 0 and self.user.life <= 0:
             self.botWin = True
